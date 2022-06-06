@@ -1,54 +1,40 @@
 function handler(event) {
 
-	var request = event.request;
-	var host = event.request.headers.host.value;
-	var uri = event.request.uri;
+    var request = event.request;
+    var host = event.request.headers.host.value;
+    var uri = event.request.uri;
 
-	if (host.startsWith("www.")) {
+	var code301 = false;
 
-		host = host.replace('www.whymark.', 'whymark.');
+    if (host.startsWith("www.") || host.startsWith("daniel.")) {
 
-		var response = {
-			statusCode: 301,
-			statusDescription: "Moved Permanently",
-			headers: {
-				location: {
-					value: host
-				}
-			}
-		};
+        host = host.replace('www.whymark.', 'whymark.');
+        host = host.replace('daniel.whymark.', 'whymark.');
 
-		return response;
-	} else if (host.startsWith("daniel.")) {
+		code301 = true;       
+    }
 
-		host = host.replace('daniel.whymark.', 'whymark.');
+    if (uri == "/about.html") {
 
-		var response = {
-			statusCode: 301,
-			statusDescription: "Moved Permanently",
-			headers: {
-				location: {
-					value: host
-				}
-			}
-		};
+		uri = uri.replace('/about.html','/');
 
-		return response;
+		code301 = true;       
+    }
 
-	} else if (uri.endsWith("about.html")) {
+	if (code301 === true) {
 
 		var response = {
-			statusCode: 301,
-			statusDescription: "Moved Permanently",
-			headers: {
-				location: {
-					value: "/"
-				}
-			}
-		};
+            statusCode: 301,
+            statusDescription: "Moved Permanently",
+            headers: {
+                location: {
+                    value: `https://${host}${uri}`
+                }
+            }
+        };
 
-		return response;
+        return response;
 	}
 
-	return request;
+    return request;
 }
