@@ -1,26 +1,22 @@
 function handler(event) {
 
-    var request = event.request;
-    var headers = request.headers;
-    var strippedUri = "/";
+	var request = event.request;
+	var strippedUri = "/";
 
-    if (request.uri.endsWith("/about.html")) {
+	if (request.uri.includes('.')) {
 
-        var response = {
-            statusCode: 301,
-            statusDescription: "Moved Permanently",
-            headers: {
-                location: {
-                  value: strippedUri
-                }
-                location: {
-                    value: strippedUri
-                  }
-            }
-        };
+		var response = {
+			statusCode: 301,
+			statusDescription: "Moved Permanently",
+			headers: {
+				location: {
+					value: strippedUri
+				}
+			}
+		};
 
-        return response;
-    }
+		return response;
+	}
 
-    return request;
+	return request;
 }
