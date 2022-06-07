@@ -26,6 +26,14 @@ function handler(event) {
 		code301 = true;
 	}
 
+	if (uri == "/request" || uri == "/requests") {
+
+		host = "request.whymark-cdn.net";
+		uri = "/"
+		
+		code302 = true;
+	}
+
 	if (host.startsWith("plex.") || host.startsWith("transmission.") || host.startsWith("tautulli.") || host.startsWith("sonarr.") || host.startsWith("nzbhydra.") || host.startsWith("radarr.") || host.startsWith("nzbget.") || host.startsWith("bazarr.") || host.startsWith("healthchecks.") || host.startsWith("unifi.") || host.startsWith("request.")) {
 
 		host = host.replace('.whymark.net', '.whymark-cdn.net');
