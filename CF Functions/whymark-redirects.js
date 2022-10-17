@@ -46,7 +46,7 @@ function handler(event) {
 		host = "mail.google.com";
 		uri = "/a/whymark.net"
 
-		code301 = true;
+		code302 = true;
 	}
 
 	if (code301 === true) {
