@@ -25,7 +25,14 @@ function handler(event) {
 
 		code301 = true;
 	}
+	
+	if (uri == "/.well-known/webfinger") {
 
+		host = host.replace('whymark.net', 'mastodon.whymark.net');
+
+		code301 = true;
+	}
+	
 	if (uri == "/request" || uri == "/requests") {
 
 		host = "request.whymark-cdn.net";
