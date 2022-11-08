@@ -41,7 +41,7 @@ function handler(event) {
 		code302 = true;
 	}
 
-	if (host.startsWith("plex.") || host.startsWith("transmission.") || host.startsWith("tautulli.") || host.startsWith("sonarr.") || host.startsWith("nzbhydra.") || host.startsWith("radarr.") || host.startsWith("nzbget.") || host.startsWith("bazarr.") || host.startsWith("unifi.") || host.startsWith("request.") || host.startsWith("mastodon.")) {
+	if (host.startsWith("plex.") || host.startsWith("transmission.") || host.startsWith("tautulli.") || host.startsWith("sonarr.") || host.startsWith("nzbhydra.") || host.startsWith("radarr.") || host.startsWith("nzbget.") || host.startsWith("bazarr.") || host.startsWith("unifi.") || host.startsWith("request.")) {
 
 		host = host.replace('.whymark.net', '.whymark-cdn.net');
 
