@@ -1,9 +1,11 @@
 function handler(event) {
 
 	var request = event.request;
-	var host = event.request.headers.host.value;
-	var uri = event.request.uri;
+	var host = request.headers.host.value;
+	var uri = request.uri;
 
+    var queryString = Object.keys(event.request.querystring).map(key => key + '=' + event.request.querystring[key].value).join('&');
+    
 	var code301 = false;
 	var code302 = false;
 
@@ -18,7 +20,6 @@ function handler(event) {
 		code301 = true;
 	}
 
-
 	if (uri == "/about.html") {
 
 		uri = uri.replace('/about.html', '/');
@@ -26,13 +27,13 @@ function handler(event) {
 		code301 = true;
 	}
 	
-	if (uri == "/.well-known/webfinger") {
+	if (uri.startsWith("/.well-known/host-meta") || uri.startsWith("/.well-known/nodeinfo") || uri.startsWith("/.well-known/webfinger") || uri == "/@Daniel") {
 
-		host = host.replace('whymark.net', 'mastodon.whymark.net');
+		host = 'mastodon.whymark-cdn.net';
 
 		code301 = true;
 	}
-	
+
 	if (uri == "/request" || uri == "/requests") {
 
 		host = "request.whymark-cdn.net";
@@ -63,7 +64,7 @@ function handler(event) {
 			statusDescription: "Moved Permanently",
 			headers: {
 				location: {
-					value: `https://${host}${uri}`
+					value: `https://${host}${uri}${(queryString.length > 0 ? '?' + queryString : '')}`
 				}
 			}
 		};
@@ -77,7 +78,7 @@ function handler(event) {
 			statusDescription: "Found",
 			headers: {
 				location: {
-					value: `https://${host}${uri}`
+					value: `https://${host}${uri}${(queryString.length > 0 ? '?' + queryString : '')}`
 				}
 			}
 		};
